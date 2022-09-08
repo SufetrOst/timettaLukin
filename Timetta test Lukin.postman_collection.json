@@ -1,0 +1,439 @@
+{
+	"info": {
+		"_postman_id": "49f12102-2228-4b9c-a667-f04c71e32aef",
+		"name": "Timetta test Lukin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19312346"
+	},
+	"item": [
+		{
+			"name": "Get Access Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var res = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"access_token\", res.access_token);\r",
+							"pm.collectionVariables.set(\"refresh_token\", res.refresh_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "external",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "all offline_access",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "NesterovA@test-task.ru",
+							"description": "Эл. почта пользователя",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "gG9NfM",
+							"description": "Пароль пользователя",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://auth.timetta.com/connect/token",
+					"protocol": "https",
+					"host": [
+						"auth",
+						"timetta",
+						"com"
+					],
+					"path": [
+						"connect",
+						"token"
+					]
+				},
+				"description": "Создание Access Token и Refresh Token."
+			},
+			"response": []
+		},
+		{
+			"name": "Query ProjectBillingTypes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.timetta.com/odata/ProjectBillingTypes",
+					"protocol": "https",
+					"host": [
+						"api",
+						"timetta",
+						"com"
+					],
+					"path": [
+						"odata",
+						"ProjectBillingTypes"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Query ProjectStates Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.timetta.com/odata/ProjectBillingTypes",
+							"protocol": "https",
+							"host": [
+								"api",
+								"timetta",
+								"com"
+							],
+							"path": [
+								"odata",
+								"ProjectBillingTypes"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "475"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; odata.metadata=minimal; odata.streaming=true"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "Request-Context",
+							"value": "appId=cid-v1:0ee4cf3e-a67a-4606-8a64-d9243c117b3e"
+						},
+						{
+							"key": "OData-Version",
+							"value": "4.0"
+						},
+						{
+							"key": "X-Rate-Limit-Limit",
+							"value": "1h"
+						},
+						{
+							"key": "X-Rate-Limit-Remaining",
+							"value": "2993"
+						},
+						{
+							"key": "X-Rate-Limit-Reset",
+							"value": "2021-11-30T15:44:36.5013378Z"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 30 Nov 2021 14:50:30 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"@odata.context\": \"https://api.timetta.com/odata/$metadata#ProjectBillingTypes\",\n    \"value\": [\n        {\n            \"code\": \"NonBillable\",\n            \"name\": \"Non-billable\",\n            \"id\": \"4d1a525f-3abc-4871-a64a-349c1dd3cabf\",\n            \"created\": \"2022-07-05T08:14:00.543692Z\",\n            \"modified\": \"2022-09-03T18:26:59.361378Z\",\n            \"isActive\": true\n        },\n        {\n            \"code\": \"TM\",\n            \"name\": \"Time and material\",\n            \"id\": \"584dddc1-94df-43b2-b3f3-372c02fcb016\",\n            \"created\": \"2022-07-05T08:14:00.543703Z\",\n            \"modified\": \"2022-09-03T18:26:59.361378Z\",\n            \"isActive\": true\n        },\n        {\n            \"code\": \"FixedBid\",\n            \"name\": \"Fixed bid\",\n            \"id\": \"e87e0e6b-c034-45ac-8b74-bd0256f3f535\",\n            \"created\": \"2022-07-05T08:14:00.543706Z\",\n            \"modified\": \"2022-09-03T18:26:59.361378Z\",\n            \"isActive\": true\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Project",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"TestProject0809\",\r\n    \"billingTypeId\": \"e87e0e6b-c034-45ac-8b74-bd0256f3f535\",\r\n    \"managerId\": \"bcd753cc-0b80-47ae-a471-6ff7f06010e1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.timetta.com/odata/Projects",
+					"protocol": "https",
+					"host": [
+						"api",
+						"timetta",
+						"com"
+					],
+					"path": [
+						"odata",
+						"Projects"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Project",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New project\",\r\n    \"billingTypeId\": \"4d1a525f-3abc-4871-a64a-349c1dd3cabf\",\r\n    \"managerId\": \"e22bf891-4857-4284-966b-0271db3bd1e7\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.timetta.com/odata/Projects",
+							"protocol": "https",
+							"host": [
+								"api",
+								"timetta",
+								"com"
+							],
+							"path": [
+								"odata",
+								"Projects"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; odata.metadata=minimal; odata.streaming=true"
+						},
+						{
+							"key": "Location",
+							"value": "https://api.timetta.com/odata/Projects(3f7aa248-a11e-4b87-b0e5-afbec1684cd3)"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "Request-Context",
+							"value": "appId=cid-v1:0ee4cf3e-a67a-4606-8a64-d9243c117b3e"
+						},
+						{
+							"key": "OData-Version",
+							"value": "4.0"
+						},
+						{
+							"key": "X-Rate-Limit-Limit",
+							"value": "1h"
+						},
+						{
+							"key": "X-Rate-Limit-Remaining",
+							"value": "2991"
+						},
+						{
+							"key": "X-Rate-Limit-Reset",
+							"value": "2021-11-30T15:44:36.5013378Z"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 30 Nov 2021 14:51:28 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"@odata.context\": \"https://api.timetta.com/odata/$metadata#Projects/$entity\",\n    \"startDate\": null,\n    \"endDate\": null,\n    \"dateValue1\": null,\n    \"dateValue2\": null,\n    \"dateValue3\": null,\n    \"dateValue4\": null,\n    \"dateValue5\": null,\n    \"code\": null,\n    \"description\": null,\n    \"externalUrl\": null,\n    \"skipManagerApprove\": false,\n    \"allowTimeEntry\": false,\n    \"stateId\": \"9752fc91-714a-414f-9c03-8a3a1d6cce06\",\n    \"billingTypeId\": \"4d1a525f-3abc-4871-a64a-349c1dd3cabf\",\n    \"managerId\": \"e22bf891-4857-4284-966b-0271db3bd1e7\",\n    \"organizationId\": null,\n    \"programId\": null,\n    \"revenueRecognitionMethodId\": null,\n    \"sourceProjectId\": null,\n    \"stringValue1\": null,\n    \"stringValue2\": null,\n    \"stringValue3\": null,\n    \"stringValue4\": null,\n    \"stringValue5\": null,\n    \"decimalValue1\": null,\n    \"decimalValue2\": null,\n    \"decimalValue3\": null,\n    \"decimalValue4\": null,\n    \"decimalValue5\": null,\n    \"lookupValue1Id\": null,\n    \"lookupValue2Id\": null,\n    \"lookupValue3Id\": null,\n    \"lookupValue4Id\": null,\n    \"lookupValue5Id\": null,\n    \"integerValue1\": null,\n    \"integerValue2\": null,\n    \"integerValue3\": null,\n    \"integerValue4\": null,\n    \"integerValue5\": null,\n    \"name\": \"New project\",\n    \"rowVersion\": \"AAAAAAAACwI=\",\n    \"createdById\": \"5eb7f565-9203-4a50-95f1-bf8cff4ddb62\",\n    \"modifiedById\": \"5eb7f565-9203-4a50-95f1-bf8cff4ddb62\",\n    \"id\": \"3f7aa248-a11e-4b87-b0e5-afbec1684cd3\",\n    \"created\": \"2021-11-30T17:51:28.9294125+03:00\",\n    \"modified\": \"2021-11-30T14:51:28.9201654Z\",\n    \"isActive\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "Patch My Project",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"organizationId\": \"76797ca0-dfdc-4138-967a-73eccfb9341c\",\r\n    \"managerId\": \"14ef4f7f-05ae-4cd1-b6da-a3ad83db2c26\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.timetta.com/odata/Projects(792bc508-ae35-4164-8c14-a5e0f171c27f)",
+					"protocol": "https",
+					"host": [
+						"api",
+						"timetta",
+						"com"
+					],
+					"path": [
+						"odata",
+						"Projects(792bc508-ae35-4164-8c14-a5e0f171c27f)"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Project",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New project\",\r\n    \"billingTypeId\": \"4d1a525f-3abc-4871-a64a-349c1dd3cabf\",\r\n    \"managerId\": \"e22bf891-4857-4284-966b-0271db3bd1e7\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.timetta.com/odata/Projects",
+							"protocol": "https",
+							"host": [
+								"api",
+								"timetta",
+								"com"
+							],
+							"path": [
+								"odata",
+								"Projects"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; odata.metadata=minimal; odata.streaming=true"
+						},
+						{
+							"key": "Location",
+							"value": "https://api.timetta.com/odata/Projects(3f7aa248-a11e-4b87-b0e5-afbec1684cd3)"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "Request-Context",
+							"value": "appId=cid-v1:0ee4cf3e-a67a-4606-8a64-d9243c117b3e"
+						},
+						{
+							"key": "OData-Version",
+							"value": "4.0"
+						},
+						{
+							"key": "X-Rate-Limit-Limit",
+							"value": "1h"
+						},
+						{
+							"key": "X-Rate-Limit-Remaining",
+							"value": "2991"
+						},
+						{
+							"key": "X-Rate-Limit-Reset",
+							"value": "2021-11-30T15:44:36.5013378Z"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 30 Nov 2021 14:51:28 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"@odata.context\": \"https://api.timetta.com/odata/$metadata#Projects/$entity\",\n    \"startDate\": null,\n    \"endDate\": null,\n    \"dateValue1\": null,\n    \"dateValue2\": null,\n    \"dateValue3\": null,\n    \"dateValue4\": null,\n    \"dateValue5\": null,\n    \"code\": null,\n    \"description\": null,\n    \"externalUrl\": null,\n    \"skipManagerApprove\": false,\n    \"allowTimeEntry\": false,\n    \"stateId\": \"9752fc91-714a-414f-9c03-8a3a1d6cce06\",\n    \"billingTypeId\": \"4d1a525f-3abc-4871-a64a-349c1dd3cabf\",\n    \"managerId\": \"e22bf891-4857-4284-966b-0271db3bd1e7\",\n    \"organizationId\": null,\n    \"programId\": null,\n    \"revenueRecognitionMethodId\": null,\n    \"sourceProjectId\": null,\n    \"stringValue1\": null,\n    \"stringValue2\": null,\n    \"stringValue3\": null,\n    \"stringValue4\": null,\n    \"stringValue5\": null,\n    \"decimalValue1\": null,\n    \"decimalValue2\": null,\n    \"decimalValue3\": null,\n    \"decimalValue4\": null,\n    \"decimalValue5\": null,\n    \"lookupValue1Id\": null,\n    \"lookupValue2Id\": null,\n    \"lookupValue3Id\": null,\n    \"lookupValue4Id\": null,\n    \"lookupValue5Id\": null,\n    \"integerValue1\": null,\n    \"integerValue2\": null,\n    \"integerValue3\": null,\n    \"integerValue4\": null,\n    \"integerValue5\": null,\n    \"name\": \"New project\",\n    \"rowVersion\": \"AAAAAAAACwI=\",\n    \"createdById\": \"5eb7f565-9203-4a50-95f1-bf8cff4ddb62\",\n    \"modifiedById\": \"5eb7f565-9203-4a50-95f1-bf8cff4ddb62\",\n    \"id\": \"3f7aa248-a11e-4b87-b0e5-afbec1684cd3\",\n    \"created\": \"2021-11-30T17:51:28.9294125+03:00\",\n    \"modified\": \"2021-11-30T14:51:28.9201654Z\",\n    \"isActive\": true\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		}
+	]
+}
